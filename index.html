@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Bugs</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-grid.min.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+  <!-- The main game window, just to set overflow without the option panel -->
+   <div class="container-fluid fill"  >
+      <div class="row">
+        <div class="col">
+          <!-- Show the current amount of resources and other   relevant info -->
+          <div id='stateInfo'>
+            <table>
+              <tr id='stateInfo_row'></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    <div class="row mainrow">
+     <div class="col-5">
+      <!-- Display longer messages -->
+      <div class='displayblock' id='storyDisplay'>
+      </div>
+
+      <!-- General control buttons -->
+      <div class='displayblock' id='controls'>
+         <!-- Bugs -->
+        <div id='bug' >
+          <span class='controltitles'> Bugs </span>
+          <span class='killbutton' id="killbugButton" onclick="engine.togglekillbutton()"
+                > Kill
+          </span>
+          </br>
+        </div>
+        </br>
+        <hr>
+         <!-- Structures -->
+       <div id='structure' >
+         <div class='buyamountcontainer'>
+           <span class='controltitles'> Structures </span>
+           <span class='buyamountbutton' id="buyamountbutton100" onclick="engine.buynumber=100;"
+               > 100
+           </span>
+           <span class='buyamountbutton' id="buyamountbutton10" onclick="engine.buynumber=10;"
+               > 10
+           </span>
+           <span class='buyamountbutton' id="buyamountbutton1" onclick="engine.buynumber=1;"
+               > 1
+           </span>
+         </div>
+         <div class='buildtracker_div'>
+           <span class='buildtracker' id="buildtracker"
+            > Nothing in queue
+           </span>
+           <span id='buildcancelbutton' class="btn btn-danger btn-xs" onclick="engine.calcelbuild();">cancel</span>
+         </div>
+       </div>
+       </br>
+       <hr>
+
+       <div id='upgrade' >
+         <span class='controltitles'> Upgrades </span>
+         </br>
+       </div>
+
+       <div id='prestige' >
+      </div>
+
+     </div>
+     </div>
+
+     <div class="col">
+       <div class="bugcol"> 
+      <table id='bugdisplaytable'>
+      <tbody>
+      <tr>
+      <td>
+      <!-- The bug displays -->
+      <div class='bug' id='bug1' onclick="engine.bugclickhandler(0)" >
+        <!-- A decoration, maybe different for different types? -->
+        <div class="avatarBox">
+          <div class='bugavatar' id='avatar1' > </div>
+        </div>
+        <!-- Name, age and description -->
+        <div Class='bugTextBox'>
+          <div class='bugname' id='name1' > </div>
+          <div class='bugtext' id='text1' > </div>
+        </div>
+        <!-- Space for gather buttons -->
+        <div class='gatherBox' id='gatherBox1'>
+        </div>
+      </div>
+      </td>
+
+      <td>
+      <div class='bug' id='bug2' onclick="engine.bugclickhandler(1)" >
+        <div class="avatarBox">
+          <div class='bugavatar' id='avatar2' > </div>
+        </div>
+        <div Class='bugTextBox'>
+          <div class='bugname' id='name2' > </div>
+          <div class='bugtext' id='text2' > </div>
+        </div>
+        <div class='gatherBox' id='gatherBox2' >
+        </div>
+      </div>
+      </td>
+      </tr>
+
+      <tr>
+      <td>
+      <div class='bug' id='bug3' onclick="engine.bugclickhandler(2)">
+        <div class="avatarBox">
+          <div class='bugavatar' id='avatar3' > </div>
+        </div>
+        <div Class='bugTextBox'>
+          <div class='bugname' id='name3' > </div>
+          <div class='bugtext' id='text3' > </div>
+        </div>
+        <div class='gatherBox' id='gatherBox3' >
+        </div>
+      </div>
+      </td>
+
+      <td>
+      <div class='bug' id='bug4' onclick="engine.bugclickhandler(3)">
+        <div class="avatarBox">
+          <div class='bugavatar' id='avatar4' > </div>
+        </div>
+        <div Class='bugTextBox'>
+          <div class='bugname' id='name4' > </div>
+          <div class='bugtext' id='text4' > </div>
+        </div>
+        <div class='gatherBox' id='gatherBox4' >
+        </div>
+      </div>
+      </td>
+      </tr>
+
+      <tr>
+      <td>
+      <div class='bug' id='bug5' onclick="engine.bugclickhandler(4)">
+        <div class="avatarBox">
+          <div class='bugavatar' id='avatar5' > </div>
+        </div>
+        <div Class='bugTextBox'>
+          <div class='bugname' id='name5' > </div>
+          <div class='bugtext' id='text5' > </div>
+        </div>
+        <div class='gatherBox' id='gatherBox5' >
+        </div>
+      </div>
+      </td>
+
+      <td>
+      <div class='bug' id='bug6' onclick="engine.bugclickhandler(5)">
+        <div class="avatarBox">
+          <div class='bugavatar' id='avatar6' > </div>
+        </div>
+        <div Class='bugTextBox'>
+          <div class='bugname' id='name6' > </div>
+          <div class='bugtext' id='text6' > </div>
+        </div>
+        <div class='gatherBox' id='gatherBox6' >
+        </div>
+      </div>
+      </td>
+      </tr>
+
+      <tr>
+      <td>
+      <div class='bug' id='bug7' onclick="engine.bugclickhandler(6)">
+        <div class="avatarBox">
+          <div class='bugavatar' id='avatar7' > </div>
+        </div>
+        <div Class='bugTextBox'>
+          <div class='bugname' id='name7' > </div>
+          <div class='bugtext' id='text7' > </div>
+        </div>
+        <div class='gatherBox' id='gatherBox7' >
+        </div>
+      </div>
+      </td>
+
+      <td>
+      <div class='bug' id='bug8' onclick="engine.bugclickhandler(7)">
+        <div class="avatarBox">
+          <div class='bugavatar' id='avatar8' > </div>
+        </div>
+        <div Class='bugTextBox'>
+          <div class='bugname' id='name8' > </div>
+          <div class='bugtext' id='text8' > </div>
+        </div>
+        <div class='gatherBox' id='gatherBox8' >
+        </div>
+      </div>
+      </td>
+      </tr>
+      </tbody>
+      </table>
+     </div>
+     </div> 
+    </div>
+
+    <!-- For options and other technical controls  -->
+    <div class="row controlrow">
+     <div class="col-12">
+      <span class='resetButton' onclick="engine.reset()" > Reset Colony </span>
+      <span class='resetButton' onclick="engine.fullreset()" > Full Reset </span>
+     </div>
+    </div>
+   </div>
+
+     <!-- Tooltip for displaying prices and info text -->
+     <div id="tooltip" >
+        <div id="tooltiptitle"></div>
+        <div id="tooltiptext"></div>
+        <div id="tooltipprice"></div>
+	   </div>
+
+
+      <!-- A popup for critical questions -->
+      <div id='popupAlert'>
+        <p id='popupAlertMessage'>  </p>
+        <span class='btn btn-success popupbutton' id='popupAlertButton'> Ok </span>
+        <span class='btn btn-success popupbutton' id='popupAlertCancelButton' > Cancel </span>
+      </div>
+
+      <script src='lzstring.js'></script>
+      <script src='display.js'></script>
+      <script src='engine.js'></script>
+      <script src='data.js'></script>
+      <script> engine.start(); </script>
+  </body>
+</html>

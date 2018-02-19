@@ -1,0 +1,351 @@
+
+/* Set the background, force margin to 0 */
+body, html, .container-fluid {
+  background: #ffffff;
+  height: 100%;
+  margin: 0;
+}
+
+/* The header for displaying resources and state */
+#stateInfo{
+  position: relative;
+  background: #eeeeee;
+  border-radius: 0px 0px 4px 4px;
+  font-size: 15px;
+  padding: 2px;
+  border: 2px solid #000000;
+  border-top: 0px;
+}
+
+/* The bottom row containing the reset button */
+.controlrow {
+  height: 28px;
+  margin: 4px;
+}
+
+.resetButton {
+  position: relative;
+  float: right;
+  border: 1px solid #000000;
+  margin: 2px;
+  background-color: #4CAF50;
+  padding: 4px;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* Main game part */
+.mainrow {
+  overflow: hidden;
+  height: calc(100% - 36px - 36px);
+}
+
+.col-5 {
+  height: 100%;
+  padding: 0px 8px 0px 8px;
+}
+
+.bugcol{
+  height: 100%;
+  min-height: 550px;
+}
+
+.col {
+  height: 100%;
+  padding: 0px 8px 0px 8px;
+  overflow: auto;
+}
+
+
+/* This is common to the content blocks on the left */
+.displayblock{
+  border: 2px solid #000000;
+}
+
+/* Upper block, display the story as text */
+#storyDisplay{
+  position: relative;
+  height: 200px;
+  margin: 4px 4px 4px 0px;
+  padding: 8px;
+  font-size: 14px;
+  overflow: auto;
+}
+
+/* The control panel */
+#controls {
+  position: relative;
+  margin: 0px 4px 4px 0px;
+  font-size: 14px;
+  padding: 8px;
+  height: calc(100% - 220px);
+  overflow: auto;
+}
+
+/* Titles in the control window */
+.controltitles{
+  font-size: 18px;
+  margin: 4px;
+}
+
+
+
+/* Colors for the bug gather buttons */
+.gatherbuttondown {
+  background-color: #4CAF50;
+}
+
+.gatherbuttonup {
+  background-color: #ffffff;
+}
+
+.buttonup {
+  background-color: #4CAF50;
+}
+
+.buttongray {
+  background-color: gray;
+}
+
+
+
+/* Buttons in the control panel ( and the popup ) */
+.button {
+  border: 1px solid #000000;
+  margin: 1px;
+  padding: 4px;
+  text-align: center;
+  text-decoration: none;
+  -webkit-user-select: none;  /* Chrome and Safari */
+  -moz-user-select: none;     /* Firefox */
+  -ms-user-select: none;      /* IE */
+  user-select: none;
+  display: none;
+}
+
+.killbutton {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border: 1px solid #000000;
+  margin: 2px;
+  background-color: #eeeeee;
+  padding: 4px;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 1px #666;
+  -webkit-user-select: none;  /* Chrome and Safari */
+  -moz-user-select: none;     /* Firefox */
+  -ms-user-select: none;      /* IE */
+  user-select: none;
+  display: none;
+}
+
+.killbuttonactive {
+  background-color: #ff0000;
+}
+
+
+/* Container for buy amount buttons */
+.buyamountcontainer {
+  margin: 4px;
+}
+
+.buyamountbutton{
+  float: right;
+  position: relative;
+  clear: left;
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  margin: 1px;
+  padding: 2px;
+  width: 32px;
+  top: -4px;
+  text-align: center;
+  -webkit-user-select: none;  /* Chrome and Safari */
+  -moz-user-select: none;     /* Firefox */
+  -ms-user-select: none;      /* IE */
+  user-select: none;
+}
+
+.buyamountbuttondown {
+  background-color: #4CAF50;
+}
+
+/* Build queue */
+.buildtracker_div {
+  font-size: 14px;
+  margin: 4px;
+}
+
+
+/* Build queue cancel button */
+#buildcancelbutton {
+  float: right;
+  position: relative;
+}
+
+
+.bugname {
+  display: inline;
+  position: relative;
+  font-size: 16px;
+}
+.bugtext {
+  display: inline;
+  position: relative;
+  font-size: 14px;
+}
+
+/* Container for the avatar blob */
+.avatarBox {
+  float:left;
+  padding: 8px;
+  width: 64px;
+  height: 95%;
+}
+
+/* Elements of the bug displays */
+.bugTextBox{
+  float:left;
+  padding: 8px;
+  width: calc(100% - 136px);
+  height: 95%;
+}
+
+/* Container for gather buttons */
+.gatherBox {
+  float:left;
+  padding: 8px;
+  width: 68px;
+  height: 95%;
+}
+
+/* Gather buttons */
+.gatherButton {
+  position: relative;
+  border: 1px solid #111111;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 14px;
+  width: 48px;
+  margin: 2px;
+  padding: 2px;
+  -webkit-user-select: none;  /* Chrome and Safari */
+  -moz-user-select: none;     /* Firefox */
+  -ms-user-select: none;      /* IE */
+  user-select: none;
+}
+
+/* A colored decoration */
+.bugavatar {
+  position: relative;
+  left: 10px;
+  top: 8px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #111111;
+  background-color: #4CAF40;
+  border-radius: 25px;
+}
+
+/* Generals for bug displays */
+#bugdisplaytable{
+  position: relative;
+  width: 100%;
+  height: calc(100% - 5px);
+}
+
+#bugdisplaytable td {
+  width: 50%;
+  height: 0%;
+  height: 25%;
+}
+
+.bug {
+  display: none;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 10px;
+  margin: 2px;
+  border: 2px solid #000000;
+  background-color: #eeeeee;
+  border-radius: 25px;
+}
+
+.bug:hover {
+    background-color: #cfcf32;
+}
+
+/* Tooltips */
+#tooltip{
+  display: none;
+  position: fixed;
+  width: 240px;
+  background-color: #dddddd;
+  text-align: center;
+  padding: 5px 0;
+  border: 2px solid #bbbbaa;
+  border-radius: 6px;
+  z-index: 1;
+  font-size: 12px;
+}
+
+#tooltiptitle{
+  font-size: 14px;
+}
+
+
+/* Popup with a button */
+#popupAlert{
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: #ddddee;
+  border: 3px solid #000000;
+  border-radius: 6px;
+  padding: 10px 10px 10px 10px;
+  margin: 5px 5px 5px 5px;
+  text-align: center;
+  font-size: 16px;
+}
+#popupAlert > h4{
+  white-space: nowrap;
+}
+#popupAlert > table{
+  margin: 0 auto;
+}
+#popupAlert > tr{
+  border: 1px;
+}
+#popupAlert > td{
+  border: 1px;
+}
+
+.popupbutton {
+  margin-top: 10px;
+}
+
+/* Lander description table */
+.lander_table_key{
+  text-align: right;
+}
+
+.lander_table_num{
+  padding: 5px 5px 5px 5px;
+  width: 6px;
+  text-align: right;
+}
+
+.res_table_key{
+  text-align: right;
+}
+
+.res_table_num{
+  padding: 10px 10px 10px 10px;
+  width: 60px;
+}
