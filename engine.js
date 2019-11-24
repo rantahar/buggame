@@ -29,6 +29,7 @@ engine = (function(){
     unlocks: {},
     /* Building in queue */
     buildqueue: [],
+    story: ""
   };
 
   /*
@@ -204,8 +205,8 @@ engine = (function(){
   }
 
   function update_version(){
-    if(engine.state.planet == undefined){
-      engine.state.planet = 'primitive';
+    if(state.planet == undefined){
+      state.planet = 'primitive';
     }
     new_perks = new Perklist();
     for (var key in new_perks.lander ){
@@ -216,6 +217,9 @@ engine = (function(){
     }
     delete perks.lander.waterspeed;
     delete next_perks.lander.waterspeed;
+    if( state.story == undefined ){
+      state.story = "";
+    }
   }
   
   
@@ -236,6 +240,8 @@ engine = (function(){
     next_perks = JSON.parse(localStorage.getItem(prefix+'next_perks'));
   
     update_version();
+    
+    display.story(state.story);
 
     if( state.unlocks == undefined ){
       state.unlocks = {};
@@ -968,7 +974,7 @@ engine = (function(){
   function save_periodic( delta ){
     if( typeof save_periodic.sincelast == 'undefined' )
       save_periodic.sincelast = 0;
-    if( save_periodic.sincelast > 10000 ){
+    if( save_periodic.sincelast > 5000 ){
       save();
       save_periodic.sincelast = 0;
       // Do a full update of the gather states
