@@ -503,14 +503,14 @@ var items = {
     type: 'special',
     unlockmessage: "As you break the shell, you take in the sunlight of your world. The sky is blue. White clouds drift acros a valley. You hear the sound of water in the distance. You are one of the lucky ones.",
     unlockcondition: function () {
-			return ( engine.bugs[0].hatched );
+			return ( engine.bugs[0] && engine.bugs[0].hatched );
 		}
   },
   gogetwater: {
     type: 'special',
     unlockmessage: "Well, time to go get some of that water.",
     unlockcondition: function () {
-      return ( engine.bugs[0].age > 10 ||
+      return ( engine.bugs[0] && engine.bugs[0].age > 10 ||
                engine.resources.water.gathering > 0 );
 		}
   },
@@ -620,7 +620,7 @@ var items = {
     unlockmessage: "You feel a terrible sense of dread. You need more food. Nothing grows here. You need a farm.",
     unlockcondition: function () {
       return ( engine.state.planet == "lifeless" &&
-       engine.bugs[0].age > 7 );
+      engine.bugs[0] && engine.bugs[0].age > 7 );
     }
   },
   food_complex: {
@@ -803,7 +803,7 @@ var items = {
     price: { food:100, water: 30 },
     upgradeeffect: function() { },
     unlockcondition: function () {
-        return ( engine.bugs[0].type == 'nurser' 
+        return ( engine.bugs[0] && engine.bugs[0].type == 'nurser' 
             &&( engine.perks.launched || engine.bugs[0].age > 10 )  );
     }
   },
@@ -2071,7 +2071,7 @@ function decrease_res(key){
 function colony_death(){
   display.story( "As the last of your bugs die you fade out of existence" );
   display.story( "Maybe one of your siblings did better" );
-  display.story( "(Click reset to run a sibling colony)" );
+  display.story( "(Click 'Reset Colony' to run a sibling colony)" );
   engine.pause();
 }
 
