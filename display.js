@@ -4,6 +4,7 @@ display = (function(){
   
   /* Display messages in the story display */
   function displayStory( text ){
+    engine.state.story = engine.state.story+"\n"+text
     $('#storyDisplay').append('<p>'+text+"</p>");
     let height = $('#storyDisplay')[0].scrollHeight;
     $('#storyDisplay').scrollTop( height );
@@ -229,6 +230,11 @@ display = (function(){
   
   /* Show the buttons in the control panel */
   function showbuttons(){
+    /* Hide the containers */
+    $('#bug').hide();
+    $('#structure').hide();
+    $('#upgrade').hide();
+    
     /* Go through all items and draw any unlocked ones */
     for( let key in items ) {
       var item = items[key];
@@ -242,6 +248,11 @@ display = (function(){
           let button = getbutton( key );
           button.text(item.title);
           button.css('display','inline-block');
+          if(item.type == 'unique structure'){
+            $('#structure').show();
+          } else {
+            $('#'+item.type).show();
+          }
           button.removeClass('buttongray');
           button.addClass('button buttonup');
   
