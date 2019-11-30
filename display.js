@@ -283,7 +283,7 @@ display = (function(){
       }
     }
   
-    //Set the color of the killbug button
+    //Display the kill button
     if( engine.state.unlocks.killbug == true ){
       document.getElementById('killbugButton').style.display='inline-block';
     } else {

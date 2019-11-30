@@ -782,9 +782,11 @@ engine = (function(){
       killstate = false;
       $('#killbugButton').addClass('killbutton');
       $('#killbugButton').removeClass('killbuttonactive');
+      $('#killbugButton').text("Kill (off)");
     } else {
       killstate = true;
       $('#killbugButton').addClass('killbutton killbuttonactive');
+      $('#killbugButton').text("Kill (on)");
     }
   }
   
