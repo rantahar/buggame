@@ -429,6 +429,16 @@ display = (function(){
     if( bug.age != undefined ){
       text +=   "</br>age: "+parseInt(bug.age);
     }
+
+    if( bug.leader && bug.egginterval != undefined ){
+      var childname = items[bug.type].childtype.toLowerCase();
+      if(engine.tier > 0){
+        var group = items[bug.type].grouptype;
+        childname = items[group].names[engine.tier-1].toLowerCase();
+      }
+      var interval = items[bug.type].egginterval(engine.tier);
+      text +=   "</br>Produces a "+childname+" every "+metricformat(interval)+" seconds";
+    }
     
     $('#text'+(i+1)).text(""); /* erase */
     $('#text'+(i+1)).append(text); /* append, with working line breaks */
