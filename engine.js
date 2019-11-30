@@ -67,6 +67,9 @@ engine = (function(){
     console.log("Resetting");
     /* Wipe the story display */
     $("#storyDisplay").text("");
+
+    /* Hide tier */
+    $("#tierdisplay").hide();
       
     /* Reset state, but keep current perks */
     if( next_perks == undefined ){

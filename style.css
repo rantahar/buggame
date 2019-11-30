@@ -23,6 +23,15 @@ body, html, .container-fluid {
   margin: 4px;
 }
 
+#tierdisplay {
+  font-size: 20px;
+  display: none;
+}
+
+.col-5 {
+  padding: 0px 8px 0px 8px;
+}
+
 .resetButton {
   position: relative;
   float: right;
@@ -40,9 +49,9 @@ body, html, .container-fluid {
   height: calc(100% - 36px - 36px);
 }
 
-.col-5 {
+.col-12 {
   height: 100%;
-  padding: 0px 8px 0px 8px;
+  padding: 0px 8px 0px 0px;
 }
 
 .bugcol{

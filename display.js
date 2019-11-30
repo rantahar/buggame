@@ -480,6 +480,11 @@ display = (function(){
       $("#stateInfo").css('background-color', '#eeeeee');
     }
 
+    if( engine.tier > 0 ){
+      $("#tierdisplay").show();
+    }
+    $("#tierdisplay").text("Tier "+engine.tier);
+
     /* Refresh bug displays */
     for(var i=0; i<8; i++){
       drawbugdisplay(i);
