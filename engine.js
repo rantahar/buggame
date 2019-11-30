@@ -797,7 +797,7 @@ engine = (function(){
       if( bugs.length > 1 ){
         killbug( engine.bugs, i, engine.state.tier );
       } else {
-        display.story("Don't");
+        display.story("You can't kill all your bugs!");
       }
     } else {
       if( items[engine.bugs[i].type].leader ){
@@ -1049,7 +1049,8 @@ engine = (function(){
     /* Update build queue */
     if( state.buildqueue[0] ){
       for( let t=timestep*delta*buildspeed(); state.buildqueue[0] && t > 0; ){
-        t = 0.7*(t - state.buildqueue[0].time);
+        state.buildqueue[0].time -= t;
+        t = -0.7*state.buildqueue[0].time;
         if( t > 0 ){
           items[state.buildqueue[0].type].oncomplete();
           state.buildqueue.shift();
