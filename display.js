@@ -120,7 +120,7 @@ display = (function(){
         return ( n / exponents[i].value ).toPrecision(3) + exponents[i].suffix;
       }
     }
-    return n.toString();
+    return Math.round(n).toString();
   }
   
   
