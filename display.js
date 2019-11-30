@@ -509,7 +509,7 @@ display = (function(){
       text = items[engine.state.buildqueue[0].type].title + " (" +  timeleft  + "s)";
       $('#buildtracker').text(text);
       if( engine.state.buildqueue.length > 1 ){
-        text = "  (Queue: " + engine.state.buildqueue.length + ")";
+        text = "  (Queue: " + (engine.state.buildqueue.length-1) + ")";
         $('#buildtracker').append(text);
       }
       $('#buildcancelbutton').show();
