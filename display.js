@@ -374,6 +374,9 @@ display = (function(){
           if(engine.bugs[index] && engine.bugs[index].leader ){
             $('#gather'+key+(index+1)).mouseenter( function(){ simpletooltip(button,"Send newly hatched workers to gather "+key); } );
             $('#gather'+key+(index+1)).mouseout( function(){ hidetooltip(); } );
+          } else {
+            $('#gather'+key+(index+1)).unbind("mouseenter");
+            $('#gather'+key+(index+1)).unbind("mouseleave");
           }
 
         } else if( gather == 'forced' ){
