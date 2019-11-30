@@ -430,7 +430,7 @@ display = (function(){
       text +=   "</br>age: "+parseInt(bug.age);
     }
 
-    if( bug.leader && bug.egginterval != undefined ){
+    if( bug.leader && bug.hatched && bug.egginterval != undefined ){
       var childname = items[bug.type].childtype.toLowerCase();
       if(engine.tier > 0){
         var group = items[bug.type].grouptype;
