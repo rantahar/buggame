@@ -148,7 +148,7 @@ body, html, .container-fluid {
 
 /* Container for buy amount buttons */
 .buyamountcontainer {
-  margin: 4px;
+  margin: 4px 4px 4px 0px;
 }
 
 .buyamountbutton{
