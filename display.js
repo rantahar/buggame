@@ -480,7 +480,7 @@ display = (function(){
       persec = get_resource_persec( key )
       let ps = metricformat( Math.floor( persec ));
   
-      text = "\xa0"+key+": " +am+"/"+st+" ("+ps+")" ;
+      text = "\xa0"+key+": " +am+"/"+st+" ("+ps+"/s)" ;
       row.append( $('<td></td>').text(text) );
     }
 
@@ -506,7 +506,7 @@ display = (function(){
     text = "";
     if( engine.state.buildqueue[0] ){
       timeleft = metricformat( Math.floor(engine.state.buildqueue[0].time/buildspeed()) );
-      text = items[engine.state.buildqueue[0].type].title + " (" +  timeleft  + ")";
+      text = items[engine.state.buildqueue[0].type].title + " (" +  timeleft  + "s)";
       $('#buildtracker').text(text);
       if( engine.state.buildqueue.length > 1 ){
         text = "  (Queue: " + engine.state.buildqueue.length + ")";
