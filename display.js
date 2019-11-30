@@ -323,6 +323,7 @@ display = (function(){
       });
       $("#gatherBox"+index).append(button);
     }
+
     return button[0];
   }
   
@@ -369,6 +370,12 @@ display = (function(){
         if( gather == 'select' ){
           $('#gather'+key+(index+1)).css('display','inline-block');
           $('#gatherBox'+(index+1)).show();
+
+          if(engine.bugs[index] && engine.bugs[index].leader ){
+            $('#gather'+key+(index+1)).mouseenter( function(){ simpletooltip(button,"Send newly hatched workers to gather "+key); } );
+            $('#gather'+key+(index+1)).mouseout( function(){ hidetooltip(); } );
+          }
+
         } else if( gather == 'forced' ){
           $('#gather'+key+(index+1)).css('display','inline-block');
           $('#gatherBox'+(index+1)).show();
