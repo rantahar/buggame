@@ -836,10 +836,12 @@ var items = {
     },
     bugclass: Emptygroup,
     get available(){
-      if( engine.tier < 9 ){
-        return true;
-      } else if( engine.perks.longrangecommunication ){
-        return true;
+      if( engine.tier > 0 ){
+        if( engine.tier < 9 ){
+          return true;
+        } else if( engine.perks.longrangecommunication ){
+          return true;
+        }
       }
       return false;
     },
