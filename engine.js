@@ -241,7 +241,9 @@ engine = (function(){
   
     update_version();
     
-    display.story(state.story);
+    let story = state.story;
+    state.story = "";
+    display.story(story);
 
     if( state.unlocks == undefined ){
       state.unlocks = {};

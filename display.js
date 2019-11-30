@@ -4,8 +4,8 @@ display = (function(){
   
   /* Display messages in the story display */
   function displayStory( text ){
-    engine.state.story = engine.state.story+"\n"+text
-    $('#storyDisplay').append('<p>'+text+"</p>");
+    engine.state.story = engine.state.story+"<p>"+text+"</p>"
+    $('#storyDisplay').append("<p>"+text+"</p>");
     let height = $('#storyDisplay')[0].scrollHeight;
     $('#storyDisplay').scrollTop( height );
   }
