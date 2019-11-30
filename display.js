@@ -474,6 +474,12 @@ display = (function(){
   
   /* Redraw all periodically updated stuff */
   function draw( ){
+    if( engine.resources.water.amount <= 0 || engine.resources.food.amount <= 0 ){
+      $("#stateInfo").css('background-color', 'red');
+    } else {
+      $("#stateInfo").css('background-color', '#eeeeee');
+    }
+
     /* Refresh bug displays */
     for(var i=0; i<8; i++){
       drawbugdisplay(i);
