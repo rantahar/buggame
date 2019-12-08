@@ -351,6 +351,31 @@ engine = (function(){
     return c;
   }
 
+  /* Resources consumed using this function are included in the average */
+  var resource_consumptions = {};
+  function consume_resource(key, amount){
+    var now =  Date.now();
+    resources[key].amount -= amount;
+    if(resource_consumptions[key] == undefined){
+      resource_consumptions[key] = [];
+    } 
+    resource_consumptions[key].push({time: now, amount:amount});
+    while( now - resource_consumptions[key][0].time > 2000 ){
+      resource_consumptions[key].shift();
+    }
+
+    let sum = 0;
+    if( resource_consumptions[key].length > 1 ){
+      for( var i=0; i<resource_consumptions[key].length; i++ ){
+        sum += resource_consumptions[key][i].amount;
+        resources[key].average = sum/(now - resource_consumptions[key][0].time);
+      }
+    } else {
+      resources[key].average = 0;
+    }
+  }
+
+
   /* Safely increase a counter in state (each stored in state) */
   function increase_counter( key, by=1 ){
     if(state[key]==undefined)
@@ -467,7 +492,7 @@ engine = (function(){
       }
 
       for( let key in price )
-        resources[key].amount -= price[key];
+        consume_resource(key, price[key]);
       return true;
     }
     
@@ -917,7 +942,7 @@ engine = (function(){
           // Uninstantiated group. Simulate individuals dying by a one shot punishment
           var price = items[bug.type].tier_price(tier);
           for( key in price ){
-            resources[key].amount -= price[key];
+            consume_resource(key, price[key]);
           }
         }
       }
@@ -1038,8 +1063,12 @@ engine = (function(){
   
     /* Update resources */
     for (let key in resources) {
-      var persec = get_resource_persec(key);
-      resources[key].amount += persec*timestep*delta;
+      var gather = get_gathering(key)*timestep*delta;
+      var consume = get_consumption(key)*timestep*delta;
+      var persec = gather - consume;
+      resources[key].amount += gather;
+      consume_resource(key, consume);
+      
       if( resources[key].amount > resources[key].storage && resources[key].amount > persec ){
         if( resources[key].storage > persec ) {
           resources[key].amount = resources[key].storage;
