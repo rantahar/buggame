@@ -446,9 +446,9 @@ display = (function(){
       } else {
         text +=   "</br>Produces a "+childname+" every "+metricformat(interval)+" seconds";
       }
-      if( engine.tier < engine.max_tier ) {
-        text +=   "</br>(Click to zoom out)";
-      }
+    }
+    if( bug.leader && engine.tier < engine.state.maxtier ) {
+      text +=   "</br>(Click to zoom out)";
     }
     
     $('#text'+(i+1)).text(""); /* erase */
