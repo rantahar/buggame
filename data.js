@@ -1858,9 +1858,9 @@ function lander_table( lander, isnew = true ){
       let n=1;
       if( engine.next_perks.lander[key] )
         n = Math.floor(engine.next_perks.lander[key]*100)/100;
-      table[key][1] = [display.metricformat(n)];
+      table[key][1] = [n.toPrecision(3)];
         n = Math.floor(lander[key]*100)/100;
-      table[key][2] = [display.metricformat(n)];
+      table[key][2] = [n.toPrecision(3)];
 
       if( engine.state.unlocks.geneticengineering == 'unlocked' ){
         /* Allows the player to select individual traits */
@@ -1881,7 +1881,7 @@ function lander_table( lander, isnew = true ){
       }
     } else {
       let n=Math.floor(engine.next_perks.lander[key]*100)/100;
-      table[key][1] = [display.metricformat(n)];
+      table[key][1] = [n.toPrecision(3)];
     }
   }
   return table;
@@ -1909,7 +1909,7 @@ function new_lander_egg(){
         if( engine.resources.oil.amount >= 20 ){
           launch();
         } else {
-          display.story("You need to make some oil to launch the egg.");
+          display.story("You need more oil to launch the egg.");
         }
       }},
       reject: { text: 'Reject', run: function(){
