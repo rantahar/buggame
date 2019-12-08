@@ -360,15 +360,15 @@ engine = (function(){
       resource_consumptions[key] = [];
     } 
     resource_consumptions[key].push({time: now, amount:amount});
-    while( now - resource_consumptions[key][0].time > 2000 ){
+    while( now - resource_consumptions[key][0].time > 5000 ){
       resource_consumptions[key].shift();
     }
 
     let sum = 0;
     if( resource_consumptions[key].length > 1 ){
-      for( var i=0; i<resource_consumptions[key].length; i++ ){
+      for( var i=1; i<resource_consumptions[key].length; i++ ){
         sum += resource_consumptions[key][i].amount;
-        resources[key].average = sum/(now - resource_consumptions[key][0].time);
+        resources[key].average = 1000*sum/(now - resource_consumptions[key][0].time);
       }
     } else {
       resources[key].average = 0;
