@@ -1183,7 +1183,7 @@ var items = {
       engine.increase_counter('waterpumps');
     },
     unlockcondition: function () {
-        return ( engine.resources.steel.amount > 1 );
+        return ( engine.resources.steel.amount > 0.5 );
     }
   },
 
@@ -1228,7 +1228,7 @@ var items = {
       engine.increase_counter('farms');
     },
     unlockcondition: function () {
-        return ( engine.counter('waterpumps') > 0 );
+      return ( engine.counter('waterpumps') > 0 || ( engine.resources.steel.amount > 0.5 && engine.state.maxtier == 0 ) );
     }
   },
 
