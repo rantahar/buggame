@@ -740,8 +740,11 @@ engine = (function(){
       } else {
         //Lowest tier, actual bugs here
         bug.bugs = [new items[bug.type].leaderclass(0)];
-        for( let j=1; j<8; j++)
+        bug.bugs[0].age = Math.random() * get_max_age();
+        for( let j=1; j<8; j++){
           bug.bugs[j] = new items[bug.type].memberclass(0);
+          bug.bugs[j].age = Math.random() * get_max_age();
+        }
       }
       bug.hatched = undefined;
       bug.age = undefined;
@@ -751,7 +754,6 @@ engine = (function(){
   function instantiate( bug, tier ){
     if( bug && !bug.bugs ){
       var gather = bug.gather;
-      var isold = bug.hatched;
       zerogathers(bug);
 
       instantiate_bug( bug, tier );
@@ -759,10 +761,6 @@ engine = (function(){
         var child = bug.bugs[i];
         if( items[child.type].group && child.bugs == undefined ) {
           instantiate_bug( child, tier-1 );
-        }
-        
-        if( items[child.type].bug && isold ){
-          child.age = Math.random() * get_max_age();
         }
       }
 
