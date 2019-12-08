@@ -150,6 +150,12 @@ function get_gathering(key) {
     gathering = planets[engine.state.planet].food_gather( gathering );
     gathering = farming + gathering;
   }
+  if( key == 'oil' ){
+    gathering = Math.min(engine.counter('oilvats'), engine.counter('Noilbugs')/2400);
+  }
+  if( key == 'steel' ){
+    gathering = Math.min(engine.counter('steelworks'), engine.counter('Nsteelbugs')/2400);
+  }
   return check_out_of_resource()*gathering;
 }
 
