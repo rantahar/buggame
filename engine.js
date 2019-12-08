@@ -224,7 +224,25 @@ engine = (function(){
       state.story = "";
     }
   }
-  
+
+
+  function update_bug_version(bugs, tier){
+    for( var i=0; i<bugs.length; i++){
+      var bug = bugs[i];
+      if(bug.type == 'steelcluster'){
+        bugs[i] = new Steelgroup(tier);
+        bugs[i].gather = 'steel';
+      }
+      if(bug.type == 'oilcluster'){
+        bugs[i] = new Oilgroup(tier);
+        bugs[i].gather = 'oil';
+      }
+      if(bug.bugs){
+        update_bug_version(bug.bugs, tier-1);
+      }
+    }
+  }
+
   
   /* Load the game */
   async function load( prefix='' ){
@@ -238,7 +256,7 @@ engine = (function(){
     
     resources = JSON.parse(localStorage.getItem(prefix+'resources'));
     state = JSON.parse(localStorage.getItem(prefix+'state'));
-  
+    
     perks = JSON.parse(localStorage.getItem(prefix+'perks'));
     next_perks = JSON.parse(localStorage.getItem(prefix+'next_perks'));
   
@@ -255,6 +273,8 @@ engine = (function(){
     bugs = toptier;
     state.tier = state.maxtier;
     current.tierup = undefined;
+
+    update_bug_version(toptier, state.maxtier);
     
     var g = recalcgathering();
     var c = recalcconsuming();
