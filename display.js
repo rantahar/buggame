@@ -434,7 +434,11 @@ display = (function(){
       var childname = items[bug.type].childtype.toLowerCase();
       if(engine.tier > 0){
         var group = items[bug.type].grouptype;
-        childname = items[group].names[engine.tier-1].toLowerCase();
+        if( items[group].names ) {
+          childname = items[group].names[engine.tier-1].toLowerCase();
+        } else {
+          childname = items[group].title.toLowerCase();
+        }
       }
       var interval = items[bug.type].egginterval(engine.tier);
       if(interval > engine.perks.lander.max_age ){
