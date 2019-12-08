@@ -437,7 +437,14 @@ display = (function(){
         childname = items[group].names[engine.tier-1].toLowerCase();
       }
       var interval = items[bug.type].egginterval(engine.tier);
-      text +=   "</br>Produces a "+childname+" every "+metricformat(interval)+" seconds";
+      if(interval > engine.perks.lander.max_age ){
+        text += "</br>Will not live long enough to create a "+childname;
+      } else {
+        text +=   "</br>Produces a "+childname+" every "+metricformat(interval)+" seconds";
+      }
+      if( engine.tier < engine.max_tier ) {
+        text +=   "</br>(Click to zoom out)";
+      }
     }
     
     $('#text'+(i+1)).text(""); /* erase */
