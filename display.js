@@ -438,7 +438,7 @@ display = (function(){
       }
       var interval = items[bug.type].egginterval(engine.tier);
       if(interval > engine.perks.lander.max_age ){
-        text += "</br>Will not live long enough to create a "+childname;
+        text += "</br>Will not live long enough to create an egg ";
       } else {
         text +=   "</br>Produces a "+childname+" every "+metricformat(interval)+" seconds";
       }
