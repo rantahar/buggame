@@ -105,9 +105,8 @@ function check_out_of_resource(){
 }
 
 
-/* Calculate the production of a resource */
-function get_resource_persec(key) {
-  let gathering = gathering_speed(key);
+/* Calculate the consumption of a resource */
+function get_consumption(key) {
   let consuming = engine.resources[key].consuming;
   if( key == 'water' || key == 'food' ){
     consuming /= engine.perks.lander.consumption;
@@ -119,11 +118,11 @@ function get_resource_persec(key) {
       consuming *= 0.8;
     }
   }
-  return check_out_of_resource()*(gathering - consuming);
+  return check_out_of_resource()*consuming;
 }
 
 /* Calculate the amount of resource gathered */
-function gathering_speed(key) {
+function get_gathering(key) {
   let gathering = engine.resources[key].gathering;
   gathering *= engine.perks.lander.carrying;
   if( key == 'water' ){
@@ -151,7 +150,11 @@ function gathering_speed(key) {
     gathering = planets[engine.state.planet].food_gather( gathering );
     gathering = farming + gathering;
   }
-  return gathering;
+  return check_out_of_resource()*gathering;
+}
+
+function get_resource_persec(key){
+  return get_gathering(key)-get_consumption(key);
 }
 
 
