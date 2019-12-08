@@ -17,6 +17,16 @@ body, html, .container-fluid {
   border-top: 0px;
 }
 
+#stateInfo_table td {
+  padding: 0px 12px 0px 12px;
+}
+
+#resource_name {
+  text-align: right;
+  font-weight: bold;
+}
+
+
 /* The bottom row containing the reset button */
 .controlrow {
   height: 28px;
@@ -46,7 +56,7 @@ body, html, .container-fluid {
 /* Main game part */
 .mainrow {
   overflow: hidden;
-  height: calc(100% - 36px - 36px);
+  height: calc(100% - 36px - 92px);
 }
 
 .col-12 {

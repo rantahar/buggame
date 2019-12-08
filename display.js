@@ -506,20 +506,37 @@ display = (function(){
   
     /* Write the resource display text */
     // Empty the display
-    var row = $('#stateInfo_row');
+    var row = $('#stateInfo_table');
     row.html('');
 
     // Add resources
-    var text = "";
-    for( let key in engine.resources ) 
+    var text;
+    var keyrow = $('<tr></tr>');
+    for( let key in engine.resources )
+      if(engine.resources[key].gatherable || engine.resources[key].amount > 0 ){
+
+      text = "<class id='resource_name'>" + key + "</span> ";
+      keyrow.append( $('<td></td>').html(text) );
+    }
+
+    // Add bug counts
+    for(let i=0; i<display_count.length; i++){
+      key = 'N'+display_count[i];
+      if( engine.state[key] > 0 ){
+        text = "<class id='resource_name'>" + display_count[i] + "</span> ";
+        keyrow.append( $('<td></td>').html(text) );
+      }
+    }
+    row.append(keyrow);
+
+    var amountrow = $('<tr></tr>');
+    for( let key in engine.resources )
       if(engine.resources[key].gatherable || engine.resources[key].amount > 0 ){
       let am = metricformat( Math.floor( engine.resources[key].amount ));
       let st = metricformat( Math.floor( engine.resources[key].storage ));
-      persec = get_resource_persec( key )
-      let ps = metricformat( Math.floor( persec ));
-  
-      text = "\xa0"+key+": " +am+"/"+st+" ("+ps+"/s)" ;
-      row.append( $('<td></td>').text(text) );
+        
+      text = ""+am+"/"+st;
+      amountrow.append( $('<td></td>').text(text) );
     }
 
     // Add bug counts
@@ -527,11 +544,29 @@ display = (function(){
       key = 'N'+display_count[i];
       if( engine.state[key] > 0 ){
         let am = metricformat( Math.floor(engine.state[key]) );
-  
-        text = "\xa0 "+display_count[i]+": " +am ;
-        row.append( $('<td></td>').text(text) );
+        text = ""+am ;
+        amountrow.append( $('<td></td>').text(text) );
+        console.log(text);
       }
     }
+    row.append(amountrow);
+
+    var gatherrow = $('<tr></tr>');
+    for( let key in engine.resources )
+      if(engine.resources[key].gatherable || engine.resources[key].amount > 0 ){
+      let gt = get_gathering(key);
+      text = "Gathering "+metricformat( Math.floor( gt ));+"/s";
+      gatherrow.append( $('<td></td>').text(text) );
+    }
+    row.append(gatherrow);
+
+    var consumerow = $('<tr></tr>');
+    for( let key in engine.resources )
+      if(engine.resources[key].gatherable || engine.resources[key].amount > 0 ){
+      text = "Using "+metricformat( Math.floor( engine.resources[key].average ))+"/s";
+      consumerow.append( $('<td></td>').text(text) );
+    }
+    row.append(consumerow);
 
     // Dangerlevel
     if( dangerlevel() > 0.01 ){
