@@ -546,7 +546,6 @@ display = (function(){
         let am = metricformat( Math.floor(engine.state[key]) );
         text = ""+am ;
         amountrow.append( $('<td></td>').text(text) );
-        console.log(text);
       }
     }
     row.append(amountrow);
