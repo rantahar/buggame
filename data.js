@@ -349,6 +349,46 @@ var Soldier = function Soldier( tier ){
 };
 
 /*
+ * Oil bug
+ */
+var Oilbug = function Oilbug( tier ){
+  engine.Bug.call(this);
+  this.name = names[Math.floor(Math.random() * names.length)];
+  this.type  = 'oilbug';
+  this.gather = 'oil';
+};
+
+/*
+ * A leader for oil group
+ */
+var Oillinker = function Oillinker( tier ){
+  engine.Leader.call(this);
+  this.type  = 'oillinker';
+  this.name = names[Math.floor(Math.random() * names.length)];
+};
+
+
+/*
+ * Steel bug
+ */
+var Steelbug = function Steelbug( tier ){
+  engine.Bug.call(this);
+  this.name = names[Math.floor(Math.random() * names.length)];
+  this.type  = 'steelbug';
+  this.gather = 'steel';
+};
+
+/*
+ * A leader for steel group
+ */
+var Steellinker = function Steellinker( tier ){
+  engine.Leader.call(this);
+  this.type  = 'steellinker';
+  this.name = names[Math.floor(Math.random() * names.length)];
+};
+
+
+/*
  * A group of diggers
  */
 var Diggergroup = function Diggergroup( tier ){
@@ -378,7 +418,7 @@ var Diggergroup = function Diggergroup( tier ){
  */
 var Soldiergroup = function Soldiergroup( tier ){
   engine.Group.call(this);
-  this.type = 'soldiergroup';
+  this.type = 'oilgroup';
   this.name = names[Math.floor(Math.random() * names.length)];
   
   var n_members = calc_group_numbers(tier);
@@ -397,29 +437,56 @@ var Soldiergroup = function Soldiergroup( tier ){
   this.age=0;
 };
 
+
 /*
  * Implemented as a bug, produces oil
  */
-var Oilcluster = function Oilcluster( tier ){
-  engine.Bug.call(this);
-  this.age = undefined;
-  this.hatched = false;
+var Oilgroup = function Oilgroup( tier ){
+  engine.Group.call(this);
+  this.type = 'oilgroup';
   this.name = names[Math.floor(Math.random() * names.length)];
-  this.type  = 'oilcluster';
-  this.gather = 'oil';
+  
+  var n_members = calc_group_numbers(tier);
+  var nurses = n_members.n;
+  var workers = n_members.w;
+  this.gatherspeed = {};
+  var age_penalty = 10/engine.perks.lander.max_age;
+  this.consumption = {
+    food:  (1.4+age_penalty)*workers+(0.1+age_penalty)*nurses,
+    water: (0.6+age_penalty)*workers+(0.1+age_penalty)*nurses
+  };
+  this.count = {
+    oilbug: workers
+  };
+  this.hatched = false;
+  this.age=0;
 };
 
+
 /*
- * Implemented as a bug, produces steel
+ * Implemented as a bug, produces oil
  */
-var Steelcluster = function Steelcluster( tier ){
-  engine.Bug.call(this);
-  this.age = undefined;
-  this.hatched = false;
+var Steelgroup = function Steelgroup( tier ){
+  engine.Group.call(this);
+  this.type = 'steelgroup';
   this.name = names[Math.floor(Math.random() * names.length)];
-  this.type  = 'steelcluster';
-  this.gather = 'steel';
+  
+  var n_members = calc_group_numbers(tier);
+  var nurses = n_members.n;
+  var workers = n_members.w;
+  this.gatherspeed = {};
+  var age_penalty = 10/engine.perks.lander.max_age;
+  this.consumption = {
+    food:  (0.02+age_penalty)*workers+(0.1+age_penalty)*nurses,
+    water: (0.010+age_penalty)*workers+(0.1+age_penalty)*nurses
+  };
+  this.count = {
+    steelbug: workers
+  };
+  this.hatched = false;
+  this.age=0;
 };
+
 
 /*
  * Creates lander egs
@@ -988,7 +1055,7 @@ var items = {
       if( engine.tier > 1 && engine.tier < 9 && engine.state.unlocks.construction ){
         return true;
       }
-      if( engine.tier > 1 && engine.perks.longrangecommunication ){
+      if( engine.perks.longrangecommunication ){
         return true;
       }
       return false;
@@ -1111,7 +1178,7 @@ var items = {
     type: 'upgrade',
     title: 'Steel Production',
     onunlock: function() {},
-    description: 'Send some workers to find iron deposits.',
+    description: 'Build a smelter under an iron deposit. Work for a cluster of steel bugs.',
     unlockmessage: "The leaders are consuming more and more of the workers output. You feel like you need to find some iron.",
     price: { food: 50000, water: 50000 },
     upgradeeffect: function() {
@@ -1141,26 +1208,84 @@ var items = {
     }
   },
 
-  steelcluster: {
+  steelbug: {
     type: 'bug',
-    title: 'Steel Cluster',
+    title: 'Steel Bug',
     description: 'These specialised bugs produce a strong acid that melts iron out of the ground.',
-    price: { food:10000, water: 10000 },
-    get available(){ return ( 
-      engine.tier > 3 &&
-      engine.counter('Nsteelclusters') < engine.counter('steelworks')
-    );},
-    bugclass: Steelcluster,
+    price: { food: 4, water: 4 },
+    get available(){ return false },
+    bugclass: Steelbug,
     unlockcondition: function () {
-      return ( engine.state.unlocks.steelproduction == 'unlocked' );
+      return ( engine.counter('steelworks') > 0 );
     },
-    group: false,
+    bug: true,
     cangather: {steel: 'forced'},
-    gatherspeed: {steel: 1},
-    consumption: {food: 200, water: 400},
+    gatherspeed: {steel: 1/2401},
+    consumption: {food: 0.08, water: 0.16},
     defence: 100,
-    color: 'blue',
+    color: "blue",
   },
+
+  steellinker: {
+    type: 'bug',
+    title: 'Steel Linker',
+    description: 'A linker specializing in steel bugs.',
+    price: { food: 5, water: 5 },
+    consumption: {food: 0.2, water: 0.2},
+    get available(){ return false },
+    bugclass: Steellinker,
+    unlockcondition: function () {
+      return ( engine.counter('steelworks') > 0 );
+    },
+    bug: true,
+    leader: true,
+    color: 'red',
+    childtype: 'steelbug',
+    grouptype: 'steelgroup',
+    egginterval: function(tier){
+      return 10*Math.pow( 4, tier )/engine.perks.lander.egginterval;
+    },
+    ondeath: function( gather, buglist, tier ){
+      if( engine.state.unlocks.smartnurser=='unlocked' ){
+        var success = engine.buybug( 'steellinker', buglist, tier );
+        if( success ){
+          buglist[0].gather = gather;
+          buglist[0].age = 5;
+        }
+      }
+    }
+  },
+
+  steelgroup: {
+    type: 'bug',
+    title: 'Steel Smelter',
+    description: 'A group of specialised bugs produce a strong acid that melts iron out of the ground..',
+    tier_price: function ( tier ) {
+      let t=tier-1;
+      let price = 3*Math.pow( 7, t+1 );
+      for( let  n = t; n>=0; n-- ){
+        price += 2*Math.pow( 6, n )*Math.pow( 7, t-n );
+      }
+      return { food: price, water: price};
+    },
+    get price( ) {
+      return this.tier_price( engine.tier )
+    },
+    get available(){ return (
+      engine.tier > 3
+    );},
+    bugclass: Steelgroup,
+    unlockcondition: function () {
+      return ( engine.counter('steelworks') > 0 );
+    },
+    group: true,
+    color: 'blue',
+    leaderclass: Steellinker,
+    groupclass: Steelgroup,
+    memberclass: Steelbug,
+    membertype: 'steelbug',
+  },
+
 
   waterpump: {
     type: 'structure',
@@ -1270,7 +1395,7 @@ var items = {
   oilvat: {
     type: 'structure',
     title: 'Decomposition Vat',
-    description: 'A drainable vat for processing food into fuel',
+    description: 'A drainable vat for processing food into fuel. Fits a cluster of oil bugs.',
     unlockmessage: "You need to make eggs and send them on their way. To do that you need to produce energy dense fuel by processing food with special enzymes.",
     get price() { return {
       food:  10000*engine.buynumber,
@@ -1309,26 +1434,84 @@ var items = {
     }
   },
 
-  oilcluster: {
+  oilbug: {
+    type: 'bug',
+    title: 'Oil Bug',
+    description: 'Produces enzymes and stirs the oil in the vat.',
+    price: { food: 4, water: 4 },
+    get available(){ return false },
+    bugclass: Oilbug,
+    unlockcondition: function () {
+      return ( engine.counter('oilvats') > 0 );
+    },
+    bug: true,
+    cangather: {oil: 'forced'},
+    gatherspeed: {oil: 1/2401},
+    consumption: {food: 2, water: 1.1},
+    defence: 100,
+    color: "black",
+  },
+
+  oillinker: {
+    type: 'bug',
+    title: 'Oil Linker',
+    description: 'A linker specializing in oil bugs.',
+    price: { food: 5, water: 5 },
+    consumption: {food: 0.2, water: 0.2},
+    get available(){ return false },
+    bugclass: Oillinker,
+    unlockcondition: function () {
+      return ( engine.counter('oilvats') > 0 );
+    },
+    bug: true,
+    leader: true,
+    color: 'red',
+    childtype: 'oilbug',
+    grouptype: 'oilgroup',
+    egginterval: function(tier){
+      return 10*Math.pow( 4, tier )/engine.perks.lander.egginterval;
+    },
+    ondeath: function( gather, buglist, tier ){
+      if( engine.state.unlocks.smartnurser=='unlocked' ){
+        var success = engine.buybug( 'oillinker', buglist, tier );
+        if( success ){
+          buglist[0].gather = gather;
+          buglist[0].age = 5;
+        }
+      }
+    }
+  },
+
+  oilgroup: {
     type: 'bug',
     title: 'Oil Mixer',
-    description: 'A large group with specialized worker bugs to operate an oil vat, mixing oil out of food, water and digestive enzymes.',
-    price: { food:10000, water: 10000 },
-    get available(){ return (
-      engine.tier > 3 &&
-      engine.counter('Noilclusters') < engine.counter('oilvats')
-    );},
-    bugclass: Oilcluster,
-    unlockcondition: function () {
-        return ( engine.counter('oilvats') > 0 );
+    description: 'A group with specialized worker bugs to operate an oil vat, mixing oil out of food, water and digestive enzymes.',
+    tier_price: function ( tier ) {
+      let t=tier-1;
+      let price = 2*Math.pow( 7, t+1 );
+      for( let  n = t; n>=0; n-- ){
+        price += 3*Math.pow( 6, n )*Math.pow( 7, t-n );
+      }
+      return { food: 1.8*price, water: price};
     },
-    group: false,
-    cangather: {oil: 'forced'},
-    gatherspeed: {oil: 1},
-    consumption: {food: 5000, water: 1000},
-    defence: 100,
+    get price( ) {
+      return this.tier_price( engine.tier )
+    },
+    get available(){ return (
+      engine.tier > 3
+    );},
+    bugclass: Oilgroup,
+    unlockcondition: function () {
+      return ( engine.counter('oilvats') > 0 );
+    },
+    group: true,
     color: 'black',
+    leaderclass: Oillinker,
+    groupclass: Oilgroup,
+    memberclass: Oilbug,
+    membertype: 'oilbug',
   },
+
 
   cannon: {
     type: 'unique structure',
