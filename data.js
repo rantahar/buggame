@@ -424,7 +424,7 @@ var Diggergroup = function Diggergroup( tier ){
  */
 var Soldiergroup = function Soldiergroup( tier ){
   engine.Group.call(this);
-  this.type = 'oilgroup';
+  this.type = 'soldiergroup';
   this.name = names[Math.floor(Math.random() * names.length)];
   
   var n_members = calc_group_numbers(tier);
@@ -1832,7 +1832,8 @@ var items = {
     upgradeeffect: function() {
       engine.perks.lander.farm_efficiency = 1;  engine.next_perks.lander.farm_efficiency = 1; },
     unlockcondition: function () {
-      return ( engine.state.planet == 'lifeless' && 
+      return (  (!engine.perks.lander.farm_efficiency) && 
+                engine.state.planet == 'lifeless' && 
       engine.state.unlocks.geneticengineering=='unlocked' );
     }
   },
