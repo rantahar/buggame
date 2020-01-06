@@ -525,6 +525,14 @@ engine = (function(){
  
   /* Number of structures to buy */
   var buynumber = 1;
+  $(".buyamountfield")[0].value = 1;
+
+  function setbuynumber( number ){
+    if(number > 0){
+      buynumber = number;
+      $(".buyamountfield")[0].value = number;
+    }
+  }
  
   /* Add structure to build queue */
   function startbuild( key, number = buynumber ){
@@ -1215,7 +1223,7 @@ engine = (function(){
     get current()  { return current; },
 
     get buynumber()  { return buynumber; },
-    set buynumber(n)  { buynumber=n; display.setbuynumbercolors(n); },
+    set buynumber(n)  { setbuynumber(n); display.setbuynumbercolors();  },
     get buildqueue()  { return state.buildqueue; },
 
     get perks()  { return perks; },

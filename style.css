@@ -187,6 +187,23 @@ body, html, .container-fluid {
   user-select: none;
 }
 
+.buyamountfield{
+  float: right;
+  position: relative;
+  clear: left;
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  margin: 1px;
+  padding: 2px;
+  width: 64px;
+  top: -4px;
+  text-align: center;
+  -webkit-user-select: none;  /* Chrome and Safari */
+  -moz-user-select: none;     /* Firefox */
+  -ms-user-select: none;      /* IE */
+  user-select: none;
+}
+
 .buyamountbuttondown {
   background-color: #4CAF50;
 }

@@ -294,12 +294,12 @@ display = (function(){
   
   
   /* set the buynumber button colors */
-  function setbuynumbercolors( n ) {
+  function setbuynumbercolors( ) {
     $("#buyamountbutton1").removeClass('buyamountbuttondown');
     $("#buyamountbutton10").removeClass('buyamountbuttondown');
     $("#buyamountbutton100").removeClass('buyamountbuttondown');
   
-    $("#buyamountbutton"+n).addClass('buyamountbuttondown');
+    $("#buyamountbutton"+engine.buynumber).addClass('buyamountbuttondown');
   }
   
   
@@ -505,7 +505,7 @@ display = (function(){
     showbuttons();
   
     /* Color the buy number buttons */
-    setbuynumbercolors( engine.buynumber );
+    setbuynumbercolors( );
   
   
     /* Write the resource display text */

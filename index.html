@@ -46,13 +46,15 @@
        <div id='structure' >
          <div class='buyamountcontainer'>
            <span class='controltitles'> Structures </span>
-           <span class='buyamountbutton' id="buyamountbutton100" onclick="engine.buynumber=100;"
+           <input class='buyamountfield' type="number" id="buyamountinput" name="buyamountinput"
+            min="1" step="1" oninput="engine.buynumber =this.value;">
+            <span class='buyamountbutton' id="buyamountbutton100" onclick="engine.buynumber=100;"
                > 100
-           </span>
-           <span class='buyamountbutton' id="buyamountbutton10" onclick="engine.buynumber=10;"
+            </span>
+            <span class='buyamountbutton' id="buyamountbutton10" onclick="engine.buynumber =10;"
                > 10
            </span>
-           <span class='buyamountbutton' id="buyamountbutton1" onclick="engine.buynumber=1;"
+           <span class='buyamountbutton' id="buyamountbutton1" onclick="engine.buynumber =1;"
                > 1
            </span>
          </div>
