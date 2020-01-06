@@ -400,7 +400,8 @@ engine = (function(){
   function increase_counter( key, by=1 ){
     if(state[key]==undefined)
       state[key] = 0;
-    state[key] += by;
+    if(Number.MAX_SAFE_INTEGER - by > state[key])
+      state[key] += by;
   }
 
   /* Get the value of a counter */

@@ -125,15 +125,22 @@ function get_consumption(key) {
 function get_gathering(key) {
   let gathering = engine.resources[key].gathering;
   gathering *= engine.perks.lander.carrying;
+  if( Number.isNaN(gathering) )
+    return Number.MAX_SAFE_INTEGER;
+  
   if( key == 'water' ){
     /* Occupy the pumps  */
-    pumping = Math.min(1000*engine.counter('waterpumps'),gathering);
-    gathering = planets[engine.state.planet].water_gather( gathering );
+    var pumping = Math.min(1000*engine.counter('waterpumps'),gathering);
+    if( gathering > 0)
+      gathering = planets[engine.state.planet].water_gather( gathering );
     if( engine.state.unlocks.automated_pumps=='unlocked' ){
       pumping *= 100;
     }
     gathering += pumping;
+    if( Number.isNaN(gathering) )
+      return Number.MAX_SAFE_INTEGER;
   }
+
   if( key == 'food' ){
     gathering *= engine.perks.lander.foodspeed;
     /* First fill farms */
@@ -149,15 +156,22 @@ function get_gathering(key) {
       farming *= engine.next_perks.lander.farm_efficiency
     
     /* Food gathering speed depends on the planet */
-    gathering = planets[engine.state.planet].food_gather( gathering );
+    if( gathering > 0)
+      gathering = planets[engine.state.planet].food_gather( gathering );
+    if( Number.isNaN(gathering) )
+      return Number.MAX_SAFE_INTEGER;
     gathering = farming + gathering;
   }
+
   if( key == 'oil' ){
     gathering = Math.min(engine.counter('oilvats'), engine.counter('Noilbugs')/2400);
   }
   if( key == 'steel' ){
     gathering = Math.min(engine.counter('steelworks'), engine.counter('Nsteelbugs')/2400);
   }
+
+  if( Number.isNaN(gathering) )
+    return Number.MAX_SAFE_INTEGER;
   return check_out_of_resource()*gathering;
 }
 
