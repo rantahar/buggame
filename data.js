@@ -137,9 +137,11 @@ function get_gathering(key) {
   if( key == 'food' ){
     gathering *= engine.perks.lander.foodspeed;
     /* First fill farms */
-    farming = Math.min(1000*engine.counter('farms'),gathering);
-    farming += Math.min(1*engine.counter('microfarms'),gathering);
+    var farming = Math.min(1000*engine.counter('farms'),gathering);
     gathering -= farming;
+    var mfarming = Math.min(1*engine.counter('microfarms'),gathering);
+    gathering -= mfarming;
+    farming += mfarming;
     if( engine.state.unlocks.automated_farms == 'unlocked' ){
       farming *= 100;
     }
