@@ -593,7 +593,7 @@ var items = {
   },
   firsthatch: {
     type: 'special',
-    unlockmessage: "As you break the shell, you take in the sunlight of your world. The sky is blue. White clouds drift acros a valley. You hear the sound of water in the distance. You are one of the lucky ones.",
+    unlockmessage: "As you break the shell, you take in the sunlight of your world. The sky is blue. White clouds drift across a valley. You hear the sound of water in the distance. You are one of the lucky ones.",
     unlockcondition: function () {
 			return ( engine.bugs[0] && engine.bugs[0].hatched );
 		}
