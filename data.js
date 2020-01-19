@@ -1031,7 +1031,6 @@ var items = {
 
   diggergroup: {
     type: 'bug',
-    unlockmessage: "A nest size group of builders can create caverns very quickly. That's a lot of diggers, though, and they need feeding. You should probably detach first.",
     names: { 1: 'Digger Group',
              2: 'Digger Group',
              3: 'Builder Nest',
